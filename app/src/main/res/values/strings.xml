@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Plantio</string>
+    <string name="register_on_plantio">Register on <font color="#5B8E55">Plantio</font></string>
+    <string name="login_on_plantio">Login on <font color="#5B8E55">Plantio</font></string>
+    <string name="already_have_account_login">Already have account? <font color="#5B8E55"><u><b>Login</b></u></font></string>
+    <string name="dont_have_account_login">Don\'t have account? <font color="#5B8E55"><u><b>Register</b></u></font></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
