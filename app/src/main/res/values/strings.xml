@@ -6,4 +6,6 @@
     <string name="dont_have_account_login">Don\'t have account? <font color="#5B8E55"><u><b>Register</b></u></font></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt, velit.</string>
+    <string name="you_don_t_have_any_services_add_service">you don\'t have any services. <font color="#5B8E55">Add Service</font></string>
 </resources>

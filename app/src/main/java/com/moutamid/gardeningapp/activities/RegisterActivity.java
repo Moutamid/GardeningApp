@@ -7,10 +7,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fxn.stash.Stash;
 import com.moutamid.gardeningapp.Constants;
 import com.moutamid.gardeningapp.MainActivity;
 import com.moutamid.gardeningapp.databinding.ActivityRegisterBinding;
 import com.moutamid.gardeningapp.models.UserModel;
+
+import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
     ActivityRegisterBinding binding;
@@ -41,13 +44,19 @@ public class RegisterActivity extends AppCompatActivity {
                             binding.password.getEditText().getText().toString(),
                             Double.parseDouble(binding.latitude.getEditText().getText().toString()),
                             Double.parseDouble(binding.longitude.getEditText().getText().toString()),
-                            binding.isGardener.isChecked()
+                            binding.isGardener.isChecked(), "", new ArrayList<>()
                     );
+                    Stash.put(Constants.STASH_USER, model);
                     Constants.databaseReference().child(Constants.USERS).child(Constants.auth().getCurrentUser().getUid()).setValue(model)
                             .addOnSuccessListener(unused -> {
                                 Constants.dismissDialog();
-                                startActivity(new Intent(this, MainActivity.class));
-                                finish();
+                                if (model.isGardener()) {
+                                    startActivity(new Intent(this, GardenerActivity.class));
+                                    finish();
+                                } else {
+                                    startActivity(new Intent(this, MainActivity.class));
+                                    finish();
+                                }
                             }).addOnFailureListener(e -> {
                                 Constants.dismissDialog();
                                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();

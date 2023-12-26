@@ -33,6 +33,9 @@ public class Constants {
     static Dialog dialog;
     public static final String DATE_FORMAT = "dd/MM/yyyy";
     public static final String USERS = "USERS";
+    public static final String ID = "ID";
+    public static final String SERVICE = "SERVICE";
+    public static final String STASH_USER = "STASH_USER";
 
     public static String getFormattedDate(long date){
         return new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(date);

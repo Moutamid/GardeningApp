@@ -1,14 +1,19 @@
 package com.moutamid.gardeningapp.models;
 
+import java.util.ArrayList;
+
 public class UserModel {
     String id, name, address, email, password;
     double latitude, longitude;
     boolean isGardener;
+    String image;
+
+    ArrayList<FeedbackModel> list;
 
     public UserModel() {
     }
 
-    public UserModel(String id, String name, String address, String email, String password, double latitude, double longitude, boolean isGardener) {
+    public UserModel(String id, String name, String address, String email, String password, double latitude, double longitude, boolean isGardener, String image, ArrayList<FeedbackModel> list) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -17,6 +22,8 @@ public class UserModel {
         this.latitude = latitude;
         this.longitude = longitude;
         this.isGardener = isGardener;
+        this.image = image;
+        this.list = list;
     }
 
     public String getId() {
@@ -81,5 +88,21 @@ public class UserModel {
 
     public void setGardener(boolean gardener) {
         isGardener = gardener;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public ArrayList<FeedbackModel> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<FeedbackModel> list) {
+        this.list = list;
     }
 }

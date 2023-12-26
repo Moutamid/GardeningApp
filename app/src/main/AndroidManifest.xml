@@ -16,6 +16,15 @@
         android:theme="@style/Theme.GardeningApp"
         tools:targetApi="31">
         <activity
+            android:name=".activities.EditGardnerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.EditServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AddServicesActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ForgotPasswordActivity"
             android:exported="false" />
         <activity

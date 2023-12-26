@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fxn.stash.Stash;
 import com.moutamid.gardeningapp.Constants;
 import com.moutamid.gardeningapp.MainActivity;
 import com.moutamid.gardeningapp.databinding.ActivitySplashScreenBinding;
@@ -33,6 +34,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                         .get().addOnSuccessListener(dataSnapshot -> {
                             if (dataSnapshot.exists()){
                                 UserModel model = dataSnapshot.getValue(UserModel.class);
+                                Stash.put(Constants.STASH_USER, model);
                                 if (model.isGardener()){
                                     startActivity(new Intent(SplashScreenActivity.this, GardenerActivity.class));
                                     finish();
@@ -45,7 +47,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                             runOnUiThread(() -> Toast.makeText(SplashScreenActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
                         });
             } else {
-                startActivity(new Intent(SplashScreenActivity.this, GardenerActivity.class));
+                startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
                 finish();
             }
         }, 2000);

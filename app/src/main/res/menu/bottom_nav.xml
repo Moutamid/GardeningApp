@@ -4,11 +4,8 @@
         android:title="Home"
         android:icon="@drawable/home_ico" />
     <item android:id="@+id/nav_list"
-        android:title="List"
+        android:title="Bookings"
         android:icon="@drawable/list_ico" />
-    <item android:id="@+id/nav_shop"
-        android:title="Shop"
-        android:icon="@drawable/shop_ico" />
     <item android:id="@+id/nav_profile"
         android:title="Profile"
         android:icon="@drawable/profile_ico" />

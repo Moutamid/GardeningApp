@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".fragments.gardener.ProfileFragment">
+
+    <TextView
+        android:id="@+id/head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/sf_ui_display"
+        android:padding="21dp"
+        android:text="Profile"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="21dp"
+        app:cardBackgroundColor="@color/grey2"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/profile_icon"
+                app:civ_border_color="@color/green"
+                app:civ_border_width="1dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    tools:text="Suleman" />
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    tools:text="example@gmail.com" />
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableStart="@drawable/round_location_on_24"
+                    android:drawablePadding="10sp"
+                    android:drawableTint="@color/green_text"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    tools:text="25.252525, -12.363636" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="21dp"
+        android:layout_marginTop="10dp"
+        android:gravity="start|center"
+        android:padding="12dp"
+        android:text="Edit Profile"
+        android:textColor="@color/black"
+        app:backgroundTint="@color/grey2"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/round_keyboard_arrow_right_24"
+        app:iconGravity="end"
+        app:iconTint="@color/black" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/privacy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="21dp"
+        android:gravity="start|center"
+        android:padding="12dp"
+        android:text="Privacy Policy"
+        android:textColor="@color/black"
+        app:backgroundTint="@color/grey2"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/round_keyboard_arrow_right_24"
+        app:iconGravity="end"
+        app:iconTint="@color/black" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="21dp"
+        android:gravity="start|center"
+        android:padding="12dp"
+        android:text="Logout"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/red"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/round_keyboard_arrow_right_24"
+        app:iconGravity="end"
+        app:iconTint="@color/white" />
+
+</LinearLayout>
