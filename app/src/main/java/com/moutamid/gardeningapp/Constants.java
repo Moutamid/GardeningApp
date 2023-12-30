@@ -35,6 +35,8 @@ public class Constants {
     public static final String USERS = "USERS";
     public static final String ID = "ID";
     public static final String SERVICE = "SERVICE";
+    public static final String BOOKINGS = "BOOKINGS";
+    public static final String ONGOING_BOOKINGS = "ONGOING_BOOKINGS";
     public static final String PASS_MODEL = "PASS_MODEL";
     public static final String STASH_USER = "STASH_USER";
 

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.moutamid.gardeningapp.BookingClickListeners;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.models.ServiceModel;
 
@@ -21,11 +22,13 @@ import java.util.Collection;
 public class GardenersAdapter extends RecyclerView.Adapter<GardenersAdapter.GardenerVH> implements Filterable{
 
     Context context;
+    BookingClickListeners clickListeners;
     ArrayList<ServiceModel> list;
     ArrayList<ServiceModel> listAll;
 
-    public GardenersAdapter(Context context, ArrayList<ServiceModel> list) {
+    public GardenersAdapter(Context context, ArrayList<ServiceModel> list, BookingClickListeners clickListeners) {
         this.context = context;
+        this.clickListeners = clickListeners;
         this.list = list;
         this.listAll = new ArrayList<>(list);
     }
@@ -43,7 +46,7 @@ public class GardenersAdapter extends RecyclerView.Adapter<GardenersAdapter.Gard
         holder.price.setText("Price : $" + model.getPrice());
 
         holder.book.setOnClickListener(v -> {
-
+            clickListeners.onClick(list.get(holder.getAdapterPosition()));
         });
     }
 

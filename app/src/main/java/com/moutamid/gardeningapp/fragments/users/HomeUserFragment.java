@@ -89,8 +89,6 @@ public class HomeUserFragment extends Fragment {
                     ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
                     return;
                 }
-                googleMap.setMyLocationEnabled(true);
-
                 for (UserModel model : usersList){
                     LatLng mark = new LatLng(model.getLatitude(), model.getLongitude());
                     MarkerOptions mo = new MarkerOptions().position(mark).flat(true)
@@ -99,7 +97,7 @@ public class HomeUserFragment extends Fragment {
                             .rotation(0).title( model.getAddress());
                     Marker mkr = googleMap.addMarker(mo);
                     marker.put(mkr.getId(), model);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(mark));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark, 10f));
                 }
 
                 googleMap.setOnMarkerClickListener(mark -> {
