@@ -16,9 +16,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.moutamid.gardeningapp.Constants;
-import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.activities.AddServicesActivity;
-import com.moutamid.gardeningapp.adapters.gardener.ServicesAdapter;
+import com.moutamid.gardeningapp.adapters.ServicesAdapter;
 import com.moutamid.gardeningapp.databinding.FragmentHomeBinding;
 import com.moutamid.gardeningapp.models.ServiceModel;
 

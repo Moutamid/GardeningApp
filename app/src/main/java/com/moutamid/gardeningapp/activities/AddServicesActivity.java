@@ -27,7 +27,7 @@ public class AddServicesActivity extends AppCompatActivity {
             if (valid()) {
                 Constants.showDialog();
                 ServiceModel model = new ServiceModel(UUID.randomUUID().toString(), Constants.auth().getCurrentUser().getUid(),
-                        binding.name.getText().toString(),
+                        binding.name.getEditText().getText().toString(),
                         Double.parseDouble(binding.price.getText().toString())
                 );
                 Constants.databaseReference().child(Constants.SERVICE).child(model.getUserID()).child(model.getId()).setValue(model)
@@ -45,7 +45,7 @@ public class AddServicesActivity extends AppCompatActivity {
     }
 
     private boolean valid() {
-        if (binding.name.getText().toString().isEmpty()) {
+        if (binding.name.getEditText().getText().toString().isEmpty()) {
             Toast.makeText(this, "Service is empty", Toast.LENGTH_SHORT).show();
             return false;
         }

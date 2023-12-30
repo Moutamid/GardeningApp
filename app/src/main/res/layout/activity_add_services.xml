@@ -21,15 +21,32 @@
             android:orientation="vertical"
             android:padding="21dp">
 
-            <EditText
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/name"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:layout_marginEnd="10dp"
                 android:hint="Service"
-                android:drawableStart="@drawable/plant_wilt_solid"
-                android:drawablePadding="12dp"
-                android:background="@drawable/et_bg" />
+                app:counterEnabled="true"
+                app:counterMaxLength="100"
+                app:boxBackgroundColor="@color/grey2"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLength="100"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <EditText
                 android:id="@+id/price"

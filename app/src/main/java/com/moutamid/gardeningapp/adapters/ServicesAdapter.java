@@ -1,4 +1,4 @@
-package com.moutamid.gardeningapp.adapters.gardener;
+package com.moutamid.gardeningapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;

@@ -8,4 +8,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt, velit.</string>
     <string name="you_don_t_have_any_services_add_service">you don\'t have any services. <font color="#5B8E55">Add Service</font></string>
+
+
+    <array name="initial_slider_values">
+        <item>10.0</item>
+        <item>1000.0</item>
+    </array>
+
 </resources>

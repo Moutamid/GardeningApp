@@ -35,6 +35,7 @@ public class Constants {
     public static final String USERS = "USERS";
     public static final String ID = "ID";
     public static final String SERVICE = "SERVICE";
+    public static final String PASS_MODEL = "PASS_MODEL";
     public static final String STASH_USER = "STASH_USER";
 
     public static String getFormattedDate(long date){
