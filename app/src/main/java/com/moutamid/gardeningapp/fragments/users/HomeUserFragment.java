@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.moutamid.gardeningapp.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.adapters.GardenersAdapter;
+import com.moutamid.gardeningapp.adapters.GardenersHomeAdapter;
 import com.moutamid.gardeningapp.databinding.FragmentHomeUserBinding;
 import com.moutamid.gardeningapp.models.GardenerModel;
 import com.moutamid.gardeningapp.models.ServiceModel;
@@ -43,7 +44,7 @@ public class HomeUserFragment extends Fragment {
     ArrayList<ServiceModel> list;
     ArrayList<UserModel> usersList;
     ArrayList<GardenerModel> gardenersList;
-    GardenersAdapter adapter;
+    GardenersHomeAdapter adapter;
 
     final double[] max = new double[1];
     final double[] min = new double[1];
@@ -119,7 +120,7 @@ public class HomeUserFragment extends Fragment {
             dialog.dismiss();
             max[0] = 1000.0;
             min[0] = 0.0;
-            adapter = new GardenersAdapter(requireContext(), gardenersList);
+            adapter = new GardenersHomeAdapter(requireContext(), gardenersList);
             binding.gardenerRC.setAdapter(adapter);
         });
 
@@ -139,7 +140,7 @@ public class HomeUserFragment extends Fragment {
             if (ll.size() == 0){
                 Toast.makeText(requireContext(), "Nothing Found", Toast.LENGTH_SHORT).show();
             }
-            adapter = new GardenersAdapter(requireContext(), ll);
+            adapter = new GardenersHomeAdapter(requireContext(), ll);
             binding.gardenerRC.setAdapter(adapter);
         });
     }
@@ -218,7 +219,7 @@ public class HomeUserFragment extends Fragment {
                     gardenersList.add(new GardenerModel(userModel, serviceModel));
             }
         }
-        adapter = new GardenersAdapter(requireContext(), gardenersList);
+        adapter = new GardenersHomeAdapter(requireContext(), gardenersList);
         binding.gardenerRC.setAdapter(adapter);
     }
 }
