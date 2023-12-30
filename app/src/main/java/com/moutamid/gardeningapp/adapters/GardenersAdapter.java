@@ -1,7 +1,6 @@
 package com.moutamid.gardeningapp.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +11,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.fxn.stash.Stash;
 import com.google.android.material.button.MaterialButton;
-import com.moutamid.gardeningapp.Constants;
 import com.moutamid.gardeningapp.R;
-import com.moutamid.gardeningapp.activities.GardenerProfileActivity;
-import com.moutamid.gardeningapp.models.GardenerModel;
+import com.moutamid.gardeningapp.models.ServiceModel;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class GardenersAdapter extends RecyclerView.Adapter<GardenersAdapter.GardenerVH> {
+public class GardenersAdapter extends RecyclerView.Adapter<GardenersAdapter.GardenerVH> implements Filterable{
 
     Context context;
-    ArrayList<GardenerModel> list;
+    ArrayList<ServiceModel> list;
+    ArrayList<ServiceModel> listAll;
 
-    public GardenersAdapter(Context context, ArrayList<GardenerModel> list) {
+    public GardenersAdapter(Context context, ArrayList<ServiceModel> list) {
         this.context = context;
         this.list = list;
+        this.listAll = new ArrayList<>(list);
     }
 
     @NonNull
@@ -40,14 +38,46 @@ public class GardenersAdapter extends RecyclerView.Adapter<GardenersAdapter.Gard
 
     @Override
     public void onBindViewHolder(@NonNull GardenerVH holder, int position) {
-        GardenerModel model = list.get(holder.getAdapterPosition());
-        holder.name.setText(model.getServiceModel().getName());
-        holder.price.setText("Price : $" + model.getServiceModel().getPrice());
+        ServiceModel model = list.get(holder.getAdapterPosition());
+        holder.name.setText(model.getName());
+        holder.price.setText("Price : $" + model.getPrice());
 
         holder.book.setOnClickListener(v -> {
 
         });
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<ServiceModel> filterList = new ArrayList<>();
+            if (constraint.toString().isEmpty()) {
+                filterList.addAll(listAll);
+            } else {
+                for (ServiceModel listModel : listAll) {
+                    if (listModel.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        filterList.add(listModel);
+                    }
+                }
+            }
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filterList;
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            list.clear();
+            list.addAll((Collection<? extends ServiceModel>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     @Override
     public int getItemCount() {
