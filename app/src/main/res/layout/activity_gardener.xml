@@ -20,6 +20,6 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/top_radius"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/bottom_nav" />
+        app:menu="@menu/gardener_nav" />
 
 </RelativeLayout>

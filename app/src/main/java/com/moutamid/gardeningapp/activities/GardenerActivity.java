@@ -13,6 +13,7 @@ import com.moutamid.gardeningapp.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.databinding.ActivityGardenerBinding;
 import com.moutamid.gardeningapp.fragments.gardener.BookingFragment;
+import com.moutamid.gardeningapp.fragments.gardener.BookingRequestsFragment;
 import com.moutamid.gardeningapp.fragments.gardener.HomeFragment;
 import com.moutamid.gardeningapp.fragments.gardener.ProfileFragment;
 
@@ -36,6 +37,8 @@ public class GardenerActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new HomeFragment()).commit();
             } else if (itemId == R.id.nav_list) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new BookingFragment()).commit();
+            } else if (itemId == R.id.nav_request) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new BookingRequestsFragment()).commit();
             } else if (itemId == R.id.nav_profile) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new ProfileFragment()).commit();
             }

@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fxn.stash.Stash;
 import com.moutamid.gardeningapp.Constants;
 import com.moutamid.gardeningapp.MainActivity;
 import com.moutamid.gardeningapp.databinding.ActivityLoginBinding;
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                                     .get().addOnSuccessListener(dataSnapshot -> {
                                         if (dataSnapshot.exists()) {
                                             UserModel model = dataSnapshot.getValue(UserModel.class);
+                                            Stash.put(Constants.STASH_USER, model);
                                             if (model.isGardener()) {
                                                 startActivity(new Intent(this, GardenerActivity.class));
                                                 finish();
