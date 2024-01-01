@@ -51,32 +51,26 @@ public class BookingRequestsFragment extends Fragment {
 
     private void getData() {
         Constants.databaseReference().child(Constants.BOOKINGS).child(Constants.auth().getCurrentUser().getUid())
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Constants.dismissDialog();
-                        if (snapshot.exists()) {
-                            list.clear();
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                BookingModel bookingModel = dataSnapshot.getValue(BookingModel.class);
-                                list.add(bookingModel);
-                            }
-
-                            if (list.size() > 0) {
-                                binding.noLayout.setVisibility(View.GONE);
-                                binding.bookingsRC.setVisibility(View.VISIBLE);
-                            }
-
-                            RequestAdapter adapter = new RequestAdapter(requireContext(), list);
-                            binding.bookingsRC.setAdapter(adapter);
+                .get().addOnSuccessListener(snapshot -> {
+                    Constants.dismissDialog();
+                    if (snapshot.exists()) {
+                        list.clear();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            BookingModel bookingModel = dataSnapshot.getValue(BookingModel.class);
+                            list.add(bookingModel);
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Constants.dismissDialog();
-                        Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        if (list.size() > 0) {
+                            binding.noLayout.setVisibility(View.GONE);
+                            binding.bookingsRC.setVisibility(View.VISIBLE);
+                        }
+
+                        RequestAdapter adapter = new RequestAdapter(requireContext(), list);
+                        binding.bookingsRC.setAdapter(adapter);
                     }
+                }).addOnFailureListener(error -> {
+                    Constants.dismissDialog();
+                    Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 }

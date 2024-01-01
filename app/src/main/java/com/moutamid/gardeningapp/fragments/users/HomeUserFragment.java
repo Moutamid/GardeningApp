@@ -65,7 +65,8 @@ public class HomeUserFragment extends Fragment {
                         usersList.clear();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             UserModel model = dataSnapshot.getValue(UserModel.class);
-                            usersList.add(model);
+                            if (model.isGardener())
+                                usersList.add(model);
                         }
                         showData();
                     } else {

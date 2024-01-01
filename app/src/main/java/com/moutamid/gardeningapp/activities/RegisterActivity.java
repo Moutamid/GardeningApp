@@ -11,6 +11,7 @@ import com.fxn.stash.Stash;
 import com.moutamid.gardeningapp.Constants;
 import com.moutamid.gardeningapp.MainActivity;
 import com.moutamid.gardeningapp.databinding.ActivityRegisterBinding;
+import com.moutamid.gardeningapp.models.FeedbackModel;
 import com.moutamid.gardeningapp.models.UserModel;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
                         binding.email.getEditText().getText().toString(),
                         binding.password.getEditText().getText().toString()
                 ).addOnSuccessListener(authResult -> {
+
                     UserModel model = new UserModel(
                             Constants.auth().getCurrentUser().getUid(),
                             binding.name.getEditText().getText().toString(),

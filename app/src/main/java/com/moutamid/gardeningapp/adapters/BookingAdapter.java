@@ -18,6 +18,10 @@ import com.fxn.stash.Stash;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 import com.moutamid.gardeningapp.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.models.BookingModel;
@@ -25,6 +29,8 @@ import com.moutamid.gardeningapp.models.FeedbackModel;
 import com.moutamid.gardeningapp.models.UserModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingVH> {
 
@@ -97,14 +103,40 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             );
             dialog.dismiss();
             Constants.showDialog();
+            ArrayList<FeedbackModel> list = new ArrayList<>();
             Constants.databaseReference().child(Constants.USERS).child(feedbackModel.getReceiverID()).child("list")
-                    .push().setValue(feedbackModel)
-                    .addOnSuccessListener(unused -> {
-                        Constants.dismissDialog();
-                        Toast.makeText(context, "Thanks For your feedback!", Toast.LENGTH_SHORT).show();
-                    }).addOnFailureListener(e -> {
-                        Constants.dismissDialog();
-                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                // If the list already exists in the database, add new items to it
+                                GenericTypeIndicator<ArrayList<FeedbackModel>> type = new GenericTypeIndicator<ArrayList<FeedbackModel>>() {};
+                                ArrayList<FeedbackModel> existingList = dataSnapshot.getValue(type);
+                                if (existingList != null) {
+                                    list.addAll(existingList);
+                                }
+                            }
+
+                            // Update the list in the database
+                            list.add(feedbackModel);
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("list", list);
+                            Constants.databaseReference().child(Constants.USERS).child(feedbackModel.getReceiverID()).updateChildren(map)
+                                    .addOnSuccessListener(unused -> {
+                                        Constants.dismissDialog();
+                                        Toast.makeText(context, "Thanks For your feedback!", Toast.LENGTH_SHORT).show();
+                                    }).addOnFailureListener(e -> {
+                                        Constants.dismissDialog();
+                                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle the error
+                            Constants.dismissDialog();
+                            Toast.makeText(context, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     });
         });
 
