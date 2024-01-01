@@ -7,7 +7,6 @@ public class UserModel {
     double latitude, longitude;
     boolean isGardener;
     String image;
-
     ArrayList<FeedbackModel> list;
 
     public UserModel() {

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import com.moutamid.gardeningapp.BookingClickListeners;
 import com.moutamid.gardeningapp.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.adapters.GardenersAdapter;
+import com.moutamid.gardeningapp.adapters.ReviewAdapter;
 import com.moutamid.gardeningapp.databinding.ActivityGardenerProfileBinding;
 import com.moutamid.gardeningapp.models.BookingModel;
 import com.moutamid.gardeningapp.models.ServiceModel;
@@ -91,6 +93,18 @@ public class GardenerProfileActivity extends AppCompatActivity {
         binding.serviceRC.setLayoutManager(new LinearLayoutManager(this));
         binding.serviceRC.setHasFixedSize(false);
 
+        binding.reviewRC.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binding.reviewRC.setHasFixedSize(false);
+
+        if (model.getList() != null){
+            if (model.getList().size() > 0) {
+                binding.NoReview.setVisibility(View.GONE);
+                binding.reviewRC.setVisibility(View.VISIBLE);
+            }
+            ReviewAdapter reviewAdapter = new ReviewAdapter(this, model.getList());
+            binding.reviewRC.setAdapter(reviewAdapter);
+        }
+
         binding.openMap.setOnClickListener(v -> {
             String uri = "geo:" + model.getLatitude() + "," + model.getLongitude() + "?q=" + model.getLatitude() + "," + model.getLongitude() + "(" + model.getAddress() + ")";
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
@@ -141,7 +155,6 @@ public class GardenerProfileActivity extends AppCompatActivity {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
-
 
         MaterialButton filter = dialog.findViewById(R.id.filter);
         MaterialButton clear = dialog.findViewById(R.id.clear);

@@ -163,7 +163,33 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textSize="24sp"
-            tools:text="Gardener Services" />
+            android:text="Reviews" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reviewRC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:listitem="@layout/review"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/NoReview"
+            android:padding="16dp"
+            android:gravity="center"
+            android:text="No Reviews Yet" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:text="Gardener Services" />
 
         <LinearLayout
             android:layout_width="match_parent"
