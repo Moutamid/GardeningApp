@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.fxn.stash.Stash;
-import com.moutamid.gardeningapp.Constants;
-import com.moutamid.gardeningapp.MainActivity;
+import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.adapters.ReviewAdapter;
 import com.moutamid.gardeningapp.databinding.ActivityUserProfileBinding;
@@ -55,21 +55,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         binding.accept.setOnClickListener(v -> {
             Constants.showDialog();
-            Constants.databaseReference().child(Constants.ONGOING_BOOKINGS).child(Constants.auth().getCurrentUser().getUid()).child(bookingModel.getID()).setValue(bookingModel)
-                    .addOnSuccessListener(unused -> {
-                        Constants.databaseReference().child(Constants.ONGOING_BOOKINGS).child(bookingModel.getSenderID()).child(bookingModel.getID()).setValue(bookingModel)
-                                .addOnSuccessListener(unused2 -> {
-                                    removeValues();
-                                })
-                                .addOnFailureListener(e -> {
-                                    Constants.dismissDialog();
-                                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                });
-                    })
-                    .addOnFailureListener(e -> {
-                        Constants.dismissDialog();
-                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+           removeValues();
         });
 
     }
@@ -81,14 +67,32 @@ public class UserProfileActivity extends AppCompatActivity {
                     Constants.databaseReference().child(Constants.BOOKINGS).child(bookingModel.getSenderID())
                             .child(bookingModel.getID()).removeValue()
                             .addOnSuccessListener(unused4 -> {
-                                Constants.dismissDialog();
-                                Toast.makeText(this, "Request Accepted Successfully", Toast.LENGTH_SHORT).show();
-                                onBackPressed();
+                                setValue();
                             }).addOnFailureListener(e -> {
                                 Constants.dismissDialog();
                                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             });
                 }).addOnFailureListener(e -> {
+                    Constants.dismissDialog();
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void setValue() {
+        Constants.databaseReference().child(Constants.PENDING_PAYMENTS).child(bookingModel.getSenderID()).child(bookingModel.getID()).setValue(bookingModel)
+                .addOnSuccessListener(unused2 -> {
+                    new FcmNotificationsSender(
+                            "/topics/" + bookingModel.getSenderID(),
+                            "Request Accepted", "Your request is accepted by the gardener", this, this)
+                            .SendNotifications();
+                    new FcmNotificationsSender(
+                            "/topics/" + bookingModel.getSenderID(),
+                            "Pending Payment", "Please complete the payment process", this, this)
+                            .SendNotifications();
+                    Toast.makeText(this, "Request Accepted Successfully", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                })
+                .addOnFailureListener(e -> {
                     Constants.dismissDialog();
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 });

@@ -8,11 +8,11 @@ public class UserModel {
     boolean isGardener;
     String image;
     ArrayList<FeedbackModel> list;
-
+    String clientID, paypalEmail;
     public UserModel() {
     }
 
-    public UserModel(String id, String name, String address, String email, String password, double latitude, double longitude, boolean isGardener, String image, ArrayList<FeedbackModel> list) {
+    public UserModel(String id, String name, String address, String email, String password, double latitude, double longitude, boolean isGardener, String image, ArrayList<FeedbackModel> list, String clientID, String paypalEmail) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -23,6 +23,24 @@ public class UserModel {
         this.isGardener = isGardener;
         this.image = image;
         this.list = list;
+        this.clientID = clientID;
+        this.paypalEmail = paypalEmail;
+    }
+
+    public String getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(String clientID) {
+        this.clientID = clientID;
+    }
+
+    public String getPaypalEmail() {
+        return paypalEmail;
+    }
+
+    public void setPaypalEmail(String paypalEmail) {
+        this.paypalEmail = paypalEmail;
     }
 
     public String getId() {

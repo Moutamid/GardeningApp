@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.moutamid.gardeningapp.Constants;
-import com.moutamid.gardeningapp.R;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.databinding.ActivityForgotPasswordBinding;
 
 public class ForgotPasswordActivity extends AppCompatActivity {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -15,13 +16,19 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.moutamid.gardeningapp.Constants;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.activities.AddServicesActivity;
 import com.moutamid.gardeningapp.adapters.ServicesAdapter;
 import com.moutamid.gardeningapp.databinding.FragmentHomeBinding;
 import com.moutamid.gardeningapp.models.ServiceModel;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+
 
 public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;

@@ -1,4 +1,4 @@
-package com.moutamid.gardeningapp;
+package com.moutamid.gardeningapp.utilis;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -34,11 +34,13 @@ public class Constants {
     public static final String DATE_FORMAT = "dd/MM/yyyy";
     public static final String USERS = "USERS";
     public static final String ID = "ID";
+    public static final String KEY = "KEY";
     public static final String SERVICE = "SERVICE";
     public static final String BOOKINGS = "BOOKINGS";
     public static final String ONGOING_BOOKINGS = "ONGOING_BOOKINGS";
     public static final String PASS_MODEL = "PASS_MODEL";
     public static final String STASH_USER = "STASH_USER";
+    public static final String PENDING_PAYMENTS = "PENDING_PAYMENTS";
 
     public static String getFormattedDate(long date){
         return new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(date);

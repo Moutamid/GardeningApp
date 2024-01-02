@@ -8,10 +8,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fxn.stash.Stash;
-import com.moutamid.gardeningapp.Constants;
-import com.moutamid.gardeningapp.MainActivity;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.databinding.ActivityRegisterBinding;
-import com.moutamid.gardeningapp.models.FeedbackModel;
 import com.moutamid.gardeningapp.models.UserModel;
 
 import java.util.ArrayList;

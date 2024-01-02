@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.moutamid.gardeningapp.Constants;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.databinding.ActivityEditServiceBinding;
 import com.moutamid.gardeningapp.models.ServiceModel;
 

@@ -13,7 +13,8 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.fxn.stash.Stash;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.moutamid.gardeningapp.Constants;
+import com.moutamid.gardeningapp.activities.PendingActivity;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.activities.EditGardnerActivity;
 import com.moutamid.gardeningapp.activities.SplashScreenActivity;
@@ -46,6 +47,9 @@ public class ProfileUserFragment extends Fragment {
 
         binding.edit.setOnClickListener(v -> {
             startActivity(new Intent(requireContext(), EditGardnerActivity.class));
+        });
+        binding.payment.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(), PendingActivity.class));
         });
 
         binding.privacy.setOnClickListener(v -> {

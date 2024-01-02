@@ -1,15 +1,13 @@
 package com.moutamid.gardeningapp.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.moutamid.gardeningapp.Constants;
+import com.fxn.stash.Stash;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.databinding.ActivityGardenerBinding;
 import com.moutamid.gardeningapp.fragments.gardener.BookingFragment;
@@ -45,5 +43,11 @@ public class GardenerActivity extends AppCompatActivity {
             return true;
         });
 
+        Constants.databaseReference().child("server_key").get()
+                .addOnSuccessListener(dataSnapshot -> {
+                    String key = dataSnapshot.getValue(String.class);
+                    Stash.put(Constants.KEY, key);
+                });
+        FirebaseMessaging.getInstance().subscribeToTopic(Constants.auth().getCurrentUser().getUid());
     }
 }

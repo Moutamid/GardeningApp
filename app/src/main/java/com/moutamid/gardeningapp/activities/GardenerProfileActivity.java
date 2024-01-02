@@ -28,8 +28,6 @@ import com.google.android.material.slider.RangeSlider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.moutamid.gardeningapp.BookingClickListeners;
-import com.moutamid.gardeningapp.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.adapters.GardenersAdapter;
 import com.moutamid.gardeningapp.adapters.ReviewAdapter;
@@ -37,6 +35,9 @@ import com.moutamid.gardeningapp.databinding.ActivityGardenerProfileBinding;
 import com.moutamid.gardeningapp.models.BookingModel;
 import com.moutamid.gardeningapp.models.ServiceModel;
 import com.moutamid.gardeningapp.models.UserModel;
+import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
+import com.moutamid.gardeningapp.utilis.BookingClickListeners;
+import com.moutamid.gardeningapp.utilis.Constants;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -96,7 +97,7 @@ public class GardenerProfileActivity extends AppCompatActivity {
         binding.reviewRC.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.reviewRC.setHasFixedSize(false);
 
-        if (model.getList() != null){
+        if (model.getList() != null) {
             if (model.getList().size() > 0) {
                 binding.NoReview.setVisibility(View.GONE);
                 binding.reviewRC.setVisibility(View.VISIBLE);
@@ -232,6 +233,10 @@ public class GardenerProfileActivity extends AppCompatActivity {
                 .addOnSuccessListener(unused -> {
                     Constants.databaseReference().child(Constants.BOOKINGS).child(bookingModel.getServiceModel().getUserID()).child(bookingModel.getID()).setValue(bookingModel)
                             .addOnSuccessListener(unused2 -> {
+                                new FcmNotificationsSender(
+                                        "/topics/" + bookingModel.getServiceModel().getUserID(),
+                                        "Booking Request", "Someone want's to book your service", this, this)
+                                        .SendNotifications();
                                 Constants.dismissDialog();
                                 Toast.makeText(this, "Booking Request Sent", Toast.LENGTH_LONG).show();
                             })

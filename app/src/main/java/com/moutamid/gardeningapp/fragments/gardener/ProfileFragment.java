@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.fxn.stash.Stash;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.moutamid.gardeningapp.Constants;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.activities.EditGardnerActivity;
 import com.moutamid.gardeningapp.activities.SplashScreenActivity;

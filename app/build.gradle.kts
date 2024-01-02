@@ -14,7 +14,7 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
-
+        setProperty("archivesBaseName", "GardeningApp-$versionName")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,6 +34,10 @@ android {
 
 dependencies {
     implementation("com.fxn769:stash:1.3.2")
+    implementation("com.android.volley:volley:1.2.1")
+
+    // Paypal
+    implementation("com.paypal.sdk:paypal-android-sdk:2.16.0")
 
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
@@ -44,6 +48,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("com.google.firebase:firebase-database:20.3.0")
     implementation("com.google.firebase:firebase-storage:20.3.0")
+    implementation("com.google.firebase:firebase-messaging:23.2.1")
     implementation("com.google.firebase:firebase-crashlytics:18.6.0")
     implementation("com.google.firebase:firebase-analytics:21.5.0")
 

@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
-import com.moutamid.gardeningapp.BookingClickListeners;
+import com.moutamid.gardeningapp.utilis.BookingClickListeners;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.models.ServiceModel;
 

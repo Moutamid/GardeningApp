@@ -1,19 +1,21 @@
-package com.moutamid.gardeningapp;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.moutamid.gardeningapp.activities;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.fxn.stash.Stash;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.databinding.ActivityMainBinding;
-import com.moutamid.gardeningapp.fragments.gardener.BookingFragment;
-import com.moutamid.gardeningapp.fragments.gardener.HomeFragment;
-import com.moutamid.gardeningapp.fragments.gardener.ProfileFragment;
 import com.moutamid.gardeningapp.fragments.users.BookingUserFragment;
 import com.moutamid.gardeningapp.fragments.users.HomeUserFragment;
 import com.moutamid.gardeningapp.fragments.users.ProfileUserFragment;
+import com.moutamid.gardeningapp.utilis.Constants;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,5 +40,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
+        Constants.databaseReference().child("server_key").get()
+                .addOnSuccessListener(dataSnapshot -> {
+                    String key = dataSnapshot.getValue(String.class);
+                    Stash.put(Constants.KEY, key);
+                });
+
+        FirebaseMessaging.getInstance().subscribeToTopic(Constants.auth().getCurrentUser().getUid());
     }
+
 }

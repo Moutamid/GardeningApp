@@ -9,9 +9,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fxn.stash.Stash;
-import com.moutamid.gardeningapp.Constants;
-import com.moutamid.gardeningapp.MainActivity;
 import com.moutamid.gardeningapp.databinding.ActivitySplashScreenBinding;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.models.UserModel;
 
 public class SplashScreenActivity extends AppCompatActivity {

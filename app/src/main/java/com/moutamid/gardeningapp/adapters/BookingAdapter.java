@@ -1,5 +1,6 @@
 package com.moutamid.gardeningapp.adapters;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -22,7 +23,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.moutamid.gardeningapp.Constants;
+import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.models.BookingModel;
 import com.moutamid.gardeningapp.models.FeedbackModel;
@@ -35,10 +37,12 @@ import java.util.Map;
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingVH> {
 
     Context context;
+    Activity activity;
     ArrayList<BookingModel> list;
 
-    public BookingAdapter(Context context, ArrayList<BookingModel> list) {
+    public BookingAdapter(Context context, Activity activity, ArrayList<BookingModel> list) {
         this.context = context;
+        this.activity = activity;
         this.list = list;
     }
 
@@ -67,6 +71,12 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
                                 .child(model.getID()).removeValue()
                                 .addOnSuccessListener(unused -> {
                                     Constants.dismissDialog();
+                                    UserModel userModel = (UserModel) Stash.getObject(Constants.STASH_USER, UserModel.class);
+                                    String rec = userModel.isGardener() ? model.getSenderID() : model.getServiceModel().getUserID();
+                                    new FcmNotificationsSender(
+                                            "/topics/" + rec,
+                                            "Order Completion", "Order Completion Successfully", context, activity)
+                                            .SendNotifications();
                                     Toast.makeText(context, "Order Completion Successfully", Toast.LENGTH_SHORT).show();
                                     showReview(model);
                                 }).addOnFailureListener(e -> {

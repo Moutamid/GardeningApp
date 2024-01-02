@@ -1,5 +1,6 @@
 package com.moutamid.gardeningapp.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -14,7 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fxn.stash.Stash;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.moutamid.gardeningapp.Constants;
+import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.activities.UserProfileActivity;
 import com.moutamid.gardeningapp.models.BookingModel;
@@ -24,10 +26,12 @@ import java.util.ArrayList;
 public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestVH> {
 
     Context context;
+    Activity activiy;
     ArrayList<BookingModel> list;
 
-    public RequestAdapter(Context context, ArrayList<BookingModel> list) {
+    public RequestAdapter(Context context, Activity activiy, ArrayList<BookingModel> list) {
         this.context = context;
+        this.activiy = activiy;
         this.list = list;
     }
 
@@ -64,6 +68,10 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                                             .child(model.getID()).removeValue()
                                             .addOnSuccessListener(unused2 -> {
                                                 Constants.dismissDialog();
+                                                new FcmNotificationsSender(
+                                                        "/topics/" + model.getSenderID(),
+                                                        "Request Decline", "Your request is decline by the gardener", context, activiy)
+                                                        .SendNotifications();
                                                 Toast.makeText(context, "Request Decline Successfully", Toast.LENGTH_SHORT).show();
                                             }).addOnFailureListener(e -> {
                                                 Constants.dismissDialog();

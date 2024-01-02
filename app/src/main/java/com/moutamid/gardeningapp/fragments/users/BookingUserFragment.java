@@ -2,7 +2,6 @@ package com.moutamid.gardeningapp.fragments.users;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -12,10 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.moutamid.gardeningapp.Constants;
-import com.moutamid.gardeningapp.R;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.adapters.BookingAdapter;
 import com.moutamid.gardeningapp.databinding.FragmentBookingUserBinding;
 import com.moutamid.gardeningapp.models.BookingModel;
@@ -64,7 +60,7 @@ public class BookingUserFragment extends Fragment {
                             binding.bookingsRC.setVisibility(View.VISIBLE);
                         }
 
-                        BookingAdapter adapter = new BookingAdapter(requireContext(), list);
+                        BookingAdapter adapter = new BookingAdapter(requireContext(), requireActivity(), list);
                         binding.bookingsRC.setAdapter(adapter);
                     }
                 }).addOnFailureListener(error -> {

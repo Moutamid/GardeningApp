@@ -10,8 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.fxn.stash.Stash;
-import com.moutamid.gardeningapp.Constants;
-import com.moutamid.gardeningapp.MainActivity;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.databinding.ActivityEditGardnerBinding;
 import com.moutamid.gardeningapp.models.UserModel;

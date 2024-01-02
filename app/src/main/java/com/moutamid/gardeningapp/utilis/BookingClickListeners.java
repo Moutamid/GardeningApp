@@ -1,4 +1,4 @@
-package com.moutamid.gardeningapp;
+package com.moutamid.gardeningapp.utilis;
 
 import com.moutamid.gardeningapp.models.ServiceModel;
 

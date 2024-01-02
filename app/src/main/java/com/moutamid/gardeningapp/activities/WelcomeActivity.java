@@ -5,8 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.moutamid.gardeningapp.Constants;
-import com.moutamid.gardeningapp.R;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.databinding.ActivityWelcomeBinding;
 
 public class WelcomeActivity extends AppCompatActivity {

@@ -6,14 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.moutamid.gardeningapp.Constants;
+import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.adapters.RequestAdapter;
 import com.moutamid.gardeningapp.databinding.FragmentBookingRequestsBinding;
 import com.moutamid.gardeningapp.models.BookingModel;
@@ -65,7 +62,7 @@ public class BookingRequestsFragment extends Fragment {
                             binding.bookingsRC.setVisibility(View.VISIBLE);
                         }
 
-                        RequestAdapter adapter = new RequestAdapter(requireContext(), list);
+                        RequestAdapter adapter = new RequestAdapter(requireContext(), requireActivity(), list);
                         binding.bookingsRC.setAdapter(adapter);
                     }
                 }).addOnFailureListener(error -> {
