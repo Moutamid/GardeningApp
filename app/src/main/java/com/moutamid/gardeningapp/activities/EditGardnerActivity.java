@@ -77,13 +77,12 @@ public class EditGardnerActivity extends AppCompatActivity {
                 userModel.getEmail(), userModel.getPassword(),
                 Double.parseDouble(binding.latitude.getEditText().getText().toString()),
                 Double.parseDouble(binding.longitude.getEditText().getText().toString()),
-                userModel.isGardener(), image, userModel.getList()
+                userModel.isGardener(), image, userModel.getList(), userModel.getClientID(), userModel.getPaypalEmail()
         );
-
-        Stash.put(Constants.STASH_USER, model);
         Constants.databaseReference().child(Constants.USERS).child(Constants.auth().getCurrentUser().getUid()).setValue(model)
                 .addOnSuccessListener(unused -> {
                     Constants.dismissDialog();
+                    Stash.put(Constants.STASH_USER, model);
                     Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }).addOnFailureListener(e -> {

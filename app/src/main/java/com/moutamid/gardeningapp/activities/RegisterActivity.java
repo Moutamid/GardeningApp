@@ -44,12 +44,12 @@ public class RegisterActivity extends AppCompatActivity {
                             binding.password.getEditText().getText().toString(),
                             Double.parseDouble(binding.latitude.getEditText().getText().toString()),
                             Double.parseDouble(binding.longitude.getEditText().getText().toString()),
-                            binding.isGardener.isChecked(), "", new ArrayList<>()
+                            binding.isGardener.isChecked(), "", new ArrayList<>(), "", ""
                     );
-                    Stash.put(Constants.STASH_USER, model);
                     Constants.databaseReference().child(Constants.USERS).child(Constants.auth().getCurrentUser().getUid()).setValue(model)
                             .addOnSuccessListener(unused -> {
                                 Constants.dismissDialog();
+                                Stash.put(Constants.STASH_USER, model);
                                 if (model.isGardener()) {
                                     startActivity(new Intent(this, GardenerActivity.class));
                                     finish();

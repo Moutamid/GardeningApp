@@ -3,11 +3,13 @@ package com.moutamid.gardeningapp.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fxn.stash.Stash;
+import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.databinding.ActivityPaymentBinding;
 import com.moutamid.gardeningapp.models.BookingModel;
 import com.moutamid.gardeningapp.models.UserModel;
@@ -32,24 +34,46 @@ public class PaymentActivity extends AppCompatActivity {
         binding = ActivityPaymentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.toolbar.back.setOnClickListener(v -> onBackPressed());
+        binding.toolbar.title.setText("Pay");
+
         bookingModel = (BookingModel) Stash.getObject(Constants.PASS_MODEL, BookingModel.class);
 
         binding.money.getEditText().setText(bookingModel.getServiceModel().getPrice() + "");
 
         config = new PayPalConfiguration()
                 .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX) // Use ENVIRONMENT_PRODUCTION for production
-                .clientId("YOUR_CLIENT_ID");
+                .clientId(getString(R.string.clientID));
 
         binding.paypal.setOnClickListener(v -> {
-            PayPalPayment payment = new PayPalPayment(new BigDecimal(bookingModel.getServiceModel().getPrice()), "USD", "Payment for " + bookingModel.getServiceModel().getName(), PayPalPayment.PAYMENT_INTENT_SALE);
-            payment.custom("receiver_client_id=" + userModel.getClientID());
-            payment.custom("receiver_email=" + userModel.getPaypalEmail());
-            Intent intent = new Intent(this, com.paypal.android.sdk.payments.PaymentActivity.class);
-            intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-            intent.putExtra(com.paypal.android.sdk.payments.PaymentActivity.EXTRA_PAYMENT, payment);
-            startActivityForResult(intent, PAYPAL_REQUEST_CODE);
+            if (valid()) {
+                PayPalPayment payment = new PayPalPayment(new BigDecimal(bookingModel.getServiceModel().getPrice()), "USD", "Payment for " + bookingModel.getServiceModel().getName(), PayPalPayment.PAYMENT_INTENT_SALE);
+                payment.custom("receiver_client_id=" + userModel.getClientID());
+                payment.custom("receiver_email=" + userModel.getPaypalEmail());
+                Intent intent = new Intent(this, com.paypal.android.sdk.payments.PaymentActivity.class);
+                intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+                intent.putExtra(com.paypal.android.sdk.payments.PaymentActivity.EXTRA_PAYMENT, payment);
+                startActivityForResult(intent, PAYPAL_REQUEST_CODE);
+            }
         });
     }
+
+    private boolean valid() {
+        if (binding.email.getEditText().getText().toString().isEmpty()) {
+            Toast.makeText(this, "Email is empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(binding.email.getEditText().getText().toString()).matches()) {
+            Toast.makeText(this, "Email is not valid", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (binding.money.getEditText().getText().toString().isEmpty()) {
+            Toast.makeText(this, "Price is empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
 
     @Override
     protected void onResume() {
@@ -60,11 +84,16 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void getUser() {
         Constants.showDialog();
-        Constants.databaseReference().child(Constants.USERS).child(Constants.auth().getCurrentUser().getUid())
+        Constants.databaseReference().child(Constants.USERS).child(bookingModel.getServiceModel().getUserID())
                 .get().addOnSuccessListener(dataSnapshot -> {
                     Constants.dismissDialog();
                     if (dataSnapshot.exists()) {
                         userModel = dataSnapshot.getValue(UserModel.class);
+                        if (userModel.getPaypalEmail() != null) {
+                            if (!userModel.getPaypalEmail().isEmpty()) {
+                                binding.email.getEditText().setText(userModel.getPaypalEmail());
+                            }
+                        }
                     }
                 }).addOnFailureListener(e -> {
                     Constants.dismissDialog();

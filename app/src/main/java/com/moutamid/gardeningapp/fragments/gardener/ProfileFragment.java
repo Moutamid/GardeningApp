@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.fxn.stash.Stash;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.moutamid.gardeningapp.activities.GardenerPaymentActivity;
 import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.activities.EditGardnerActivity;
@@ -47,6 +48,9 @@ public class ProfileFragment extends Fragment {
 
         binding.edit.setOnClickListener(v -> {
             startActivity(new Intent(requireContext(), EditGardnerActivity.class));
+        });
+        binding.payment.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(), GardenerPaymentActivity.class));
         });
 
         binding.privacy.setOnClickListener(v -> {

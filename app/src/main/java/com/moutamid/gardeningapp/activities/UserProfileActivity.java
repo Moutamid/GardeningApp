@@ -1,28 +1,29 @@
 package com.moutamid.gardeningapp.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.bumptech.glide.Glide;
 import com.fxn.stash.Stash;
-import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
-import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.adapters.ReviewAdapter;
 import com.moutamid.gardeningapp.databinding.ActivityUserProfileBinding;
 import com.moutamid.gardeningapp.models.BookingModel;
 import com.moutamid.gardeningapp.models.UserModel;
+import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
+import com.moutamid.gardeningapp.utilis.Constants;
 
 public class UserProfileActivity extends AppCompatActivity {
     ActivityUserProfileBinding binding;
     UserModel userModel;
     BookingModel bookingModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,7 @@ public class UserProfileActivity extends AppCompatActivity {
         Constants.databaseReference().child(Constants.USERS).child(bookingModel.getSenderID())
                 .get().addOnSuccessListener(dataSnapshot -> {
                     Constants.dismissDialog();
-                    if (dataSnapshot.exists()){
+                    if (dataSnapshot.exists()) {
                         userModel = dataSnapshot.getValue(UserModel.class);
                         setContent();
                     }
@@ -55,7 +56,14 @@ public class UserProfileActivity extends AppCompatActivity {
 
         binding.accept.setOnClickListener(v -> {
             Constants.showDialog();
-           removeValues();
+            UserModel user = (UserModel) Stash.getObject(Constants.STASH_USER, UserModel.class);
+            if (user.getPaypalEmail() != null && user.getClientID() != null) {
+                if (!user.getPaypalEmail().isEmpty() && !user.getClientID().isEmpty()) {
+                    removeValues();
+                } else
+                    Toast.makeText(this, "Setup your payment method first", Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(this, "Setup your payment method first", Toast.LENGTH_SHORT).show();
         });
 
     }
@@ -102,7 +110,7 @@ public class UserProfileActivity extends AppCompatActivity {
         binding.reviewRC.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.reviewRC.setHasFixedSize(false);
 
-        if (userModel.getList() != null){
+        if (userModel.getList() != null) {
             if (userModel.getList().size() > 0) {
                 binding.NoReview.setVisibility(View.GONE);
                 binding.reviewRC.setVisibility(View.VISIBLE);
