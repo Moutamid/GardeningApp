@@ -31,6 +31,33 @@
                 android:layout_weight="1"
                 tools:text="12/01/2024 - 24/01/2024"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:layout_marginEnd="10dp"
+                    tools:text="Service : "/>
+
+                <TextView
+                    android:id="@+id/service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    tools:text="Watering"/>
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"

@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.activities.EditServiceActivity;
 import com.moutamid.gardeningapp.models.ServiceModel;
+import com.moutamid.gardeningapp.utilis.Constants;
 
 import java.util.ArrayList;
 
@@ -38,8 +38,9 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
     public void onBindViewHolder(@NonNull ServiceVH holder, int position) {
         ServiceModel model = list.get(holder.getAdapterPosition());
 
-        holder.price.setText("Price : $" + model.getPrice());
+        holder.price.setText("Price : AED" + model.getPrice());
         holder.name.setText(model.getName());
+        holder.service.setText(model.getService());
 
         holder.delete.setOnClickListener(v -> {
             new MaterialAlertDialogBuilder(context)
@@ -63,13 +64,15 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
         return list.size();
     }
 
-    public class ServiceVH extends RecyclerView.ViewHolder{
-        TextView price, name;
+    public class ServiceVH extends RecyclerView.ViewHolder {
+        TextView price, service, name;
         MaterialCardView delete, edit;
+
         public ServiceVH(@NonNull View itemView) {
             super(itemView);
             price = itemView.findViewById(R.id.price);
             name = itemView.findViewById(R.id.name);
+            service = itemView.findViewById(R.id.service);
             delete = itemView.findViewById(R.id.delete);
             edit = itemView.findViewById(R.id.edit);
         }

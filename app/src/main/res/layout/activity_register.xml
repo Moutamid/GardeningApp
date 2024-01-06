@@ -125,6 +125,25 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/autoDetect"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="0dp"
+                android:layout_marginStart="10dp"
+                app:cardBackgroundColor="@color/grey2"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/round_my_location_24"
+                    android:layout_margin="12dp"
+                    android:layout_gravity="center" />
+
+            </com.google.android.material.card.MaterialCardView>
+
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout

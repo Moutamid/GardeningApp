@@ -3,29 +3,31 @@ package com.moutamid.gardeningapp.fragments.users;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.fxn.stash.Stash;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.moutamid.gardeningapp.activities.PendingActivity;
-import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.activities.EditGardnerActivity;
+import com.moutamid.gardeningapp.activities.PendingActivity;
 import com.moutamid.gardeningapp.activities.SplashScreenActivity;
 import com.moutamid.gardeningapp.databinding.FragmentProfileUserBinding;
 import com.moutamid.gardeningapp.models.UserModel;
+import com.moutamid.gardeningapp.utilis.Constants;
 
 public class ProfileUserFragment extends Fragment {
     FragmentProfileUserBinding binding;
+
     public ProfileUserFragment() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -57,11 +59,45 @@ public class ProfileUserFragment extends Fragment {
             startActivity(intent);
         });
 
+        binding.delete.setOnClickListener(v -> {
+            new MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Delete Account")
+                    .setMessage("Are you sure you want to delete account?")
+                    .setNegativeButton("No", ((dialog, which) -> dialog.dismiss()))
+                    .setPositiveButton("Yes", ((dialog, which) -> {
+                        dialog.dismiss();
+                        deleteAccount();
+                    }))
+                    .show();
+        });
+
         return binding.getRoot();
+    }
+
+    private void deleteAccount() {
+        Constants.showDialog();
+        Constants.databaseReference().child(Constants.USERS).child(Constants.auth().getCurrentUser().getUid())
+                .removeValue().addOnSuccessListener(unused -> {
+                    Constants.auth().getCurrentUser().delete()
+                            .addOnSuccessListener(unused1 -> {
+                                Constants.dismissDialog();
+                                Constants.auth().signOut();
+                                startActivity(new Intent(requireContext(), SplashScreenActivity.class));
+                                requireActivity().finish();
+                            }).addOnFailureListener(e -> {
+                                Constants.dismissDialog();
+                                Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                })
+                .addOnFailureListener(e -> {
+                    Constants.dismissDialog();
+                    Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
     @Override
     public void onResume() {
+        Constants.initDialog(requireContext());
         super.onResume();
         UserModel userModel = (UserModel) Stash.getObject(Constants.STASH_USER, UserModel.class);
         if (userModel != null) {

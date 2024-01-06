@@ -56,7 +56,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
     public void onBindViewHolder(@NonNull BookingVH holder, int position) {
         BookingModel model = list.get(holder.getAdapterPosition());
         holder.name.setText(model.getServiceModel().getName());
-        holder.price.setText("Price : $" + model.getServiceModel().getPrice());
+        holder.service.setText(model.getServiceModel().getService());
+        holder.price.setText("Price : AED" + model.getServiceModel().getPrice());
         String date = Constants.getFormattedDate(model.getStartDate()) + " - " + Constants.getFormattedDate(model.getEndDate());
         holder.date.setText(date);
 
@@ -158,13 +159,14 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
     }
 
     public class BookingVH extends RecyclerView.ViewHolder {
-        TextView date, price, name;
+        TextView date, price,service, name;
 
         public BookingVH(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.date);
             price = itemView.findViewById(R.id.price);
             name = itemView.findViewById(R.id.name);
+            service = itemView.findViewById(R.id.service);
         }
     }
 

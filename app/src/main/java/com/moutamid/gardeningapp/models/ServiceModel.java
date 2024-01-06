@@ -2,15 +2,25 @@ package com.moutamid.gardeningapp.models;
 
 public class ServiceModel {
     String id, userID, name;
+    String service;
     double price;
     public ServiceModel() {
     }
 
-    public ServiceModel(String id, String userID, String name, double price) {
+    public ServiceModel(String id, String userID, String name, String service, double price) {
         this.id = id;
         this.userID = userID;
         this.name = name;
+        this.service = service;
         this.price = price;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
     }
 
     public String getId() {

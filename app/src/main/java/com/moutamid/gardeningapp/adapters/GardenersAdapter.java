@@ -43,7 +43,8 @@ public class GardenersAdapter extends RecyclerView.Adapter<GardenersAdapter.Gard
     public void onBindViewHolder(@NonNull GardenerVH holder, int position) {
         ServiceModel model = list.get(holder.getAdapterPosition());
         holder.name.setText(model.getName());
-        holder.price.setText("Price : $" + model.getPrice());
+        holder.service.setText(model.getService());
+        holder.price.setText("Price : AED" + model.getPrice());
 
         holder.book.setOnClickListener(v -> {
             clickListeners.onClick(list.get(holder.getAdapterPosition()));
@@ -89,12 +90,13 @@ public class GardenersAdapter extends RecyclerView.Adapter<GardenersAdapter.Gard
 
     public class GardenerVH extends RecyclerView.ViewHolder {
         MaterialButton book;
-        TextView price, name;
+        TextView price, name,service;
 
         public GardenerVH(@NonNull View itemView) {
             super(itemView);
             book = itemView.findViewById(R.id.book);
             name = itemView.findViewById(R.id.name);
+            service = itemView.findViewById(R.id.service);
             price = itemView.findViewById(R.id.price);
         }
     }

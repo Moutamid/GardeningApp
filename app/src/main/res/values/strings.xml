@@ -11,9 +11,20 @@
 
     <string name="clientID">AYINLVcPLa5eBHLKvVrVG6wCtdXC7ZjcjlkgYX4tET8WO4dZ8jNYBkMmfTWyVNIpLRfij6Dlbh_3fWJu</string>
     <string name="clientSecret">ENc-ay1QOktF6FGvRCad0lDOxZmC-9mtIs7xrUdtS1T05LfHiGNPZv_vg3LsucARd3JVbVULNE6FcLEK</string>
+
     <array name="initial_slider_values">
         <item>10.0</item>
         <item>1000.0</item>
     </array>
+
+    <string-array name="services">
+        <item>Watering</item>
+        <item>Weeding</item>
+        <item>Pruning</item>
+        <item>Mowing</item>
+        <item>Planting</item>
+        <item>Fertilizing</item>
+        <item>Pest Control</item>
+    </string-array>
 
 </resources>

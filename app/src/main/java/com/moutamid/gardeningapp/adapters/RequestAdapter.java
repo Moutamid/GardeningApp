@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fxn.stash.Stash;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
-import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.activities.UserProfileActivity;
 import com.moutamid.gardeningapp.models.BookingModel;
+import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
+import com.moutamid.gardeningapp.utilis.Constants;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
     public void onBindViewHolder(@NonNull RequestVH holder, int position) {
         BookingModel model = list.get(holder.getAdapterPosition());
         holder.name.setText(model.getServiceModel().getName());
-        holder.price.setText("Price : $" + model.getServiceModel().getPrice());
+        holder.service.setText(model.getServiceModel().getService());
+        holder.price.setText("Price : AED" + model.getServiceModel().getPrice());
         String date = Constants.getFormattedDate(model.getStartDate()) + " - " + Constants.getFormattedDate(model.getEndDate());
         holder.date.setText(date);
 
@@ -94,12 +95,14 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
 
     public class RequestVH extends RecyclerView.ViewHolder {
         MaterialCardView accept, decline;
-        TextView date, price, name;
+        TextView date, price,service, name;
+
         public RequestVH(@NonNull View itemView) {
             super(itemView);
             accept = itemView.findViewById(R.id.accept);
             decline = itemView.findViewById(R.id.decline);
             date = itemView.findViewById(R.id.date);
+            service = itemView.findViewById(R.id.service);
             price = itemView.findViewById(R.id.price);
             name = itemView.findViewById(R.id.name);
         }

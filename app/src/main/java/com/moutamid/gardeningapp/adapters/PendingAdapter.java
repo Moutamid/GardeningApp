@@ -56,7 +56,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.BookingV
     public void onBindViewHolder(@NonNull BookingVH holder, int position) {
         BookingModel model = list.get(holder.getAdapterPosition());
         holder.name.setText(model.getServiceModel().getName());
-        holder.price.setText("Price : $" + model.getServiceModel().getPrice());
+        holder.price.setText("Price : AED" + model.getServiceModel().getPrice());
         String date = Constants.getFormattedDate(model.getStartDate()) + " - " + Constants.getFormattedDate(model.getEndDate());
         holder.date.setText(date);
 
