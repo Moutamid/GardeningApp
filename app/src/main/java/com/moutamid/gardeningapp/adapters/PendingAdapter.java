@@ -1,40 +1,22 @@
 package com.moutamid.gardeningapp.adapters;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fxn.stash.Stash;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.activities.PaymentActivity;
 import com.moutamid.gardeningapp.models.BookingModel;
-import com.moutamid.gardeningapp.models.FeedbackModel;
-import com.moutamid.gardeningapp.models.UserModel;
-import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
 import com.moutamid.gardeningapp.utilis.Constants;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.BookingVH> {
 
