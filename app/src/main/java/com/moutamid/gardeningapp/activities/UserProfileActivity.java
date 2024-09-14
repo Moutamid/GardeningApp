@@ -16,7 +16,7 @@ import com.moutamid.gardeningapp.adapters.ReviewAdapter;
 import com.moutamid.gardeningapp.databinding.ActivityUserProfileBinding;
 import com.moutamid.gardeningapp.models.BookingModel;
 import com.moutamid.gardeningapp.models.UserModel;
-import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
+import com.moutamid.gardeningapp.notification.FCMNotificationHelper;
 import com.moutamid.gardeningapp.utilis.Constants;
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -89,14 +89,12 @@ public class UserProfileActivity extends AppCompatActivity {
     private void setValue() {
         Constants.databaseReference().child(Constants.PENDING_PAYMENTS).child(bookingModel.getSenderID()).child(bookingModel.getID()).setValue(bookingModel)
                 .addOnSuccessListener(unused2 -> {
-                    new FcmNotificationsSender(
-                            "/topics/" + bookingModel.getSenderID(),
-                            "Request Accepted", "Your request is accepted by the gardener", this, this)
-                            .SendNotifications();
-                    new FcmNotificationsSender(
-                            "/topics/" + bookingModel.getSenderID(),
-                            "Pending Payment", "Please complete the payment process", this, this)
-                            .SendNotifications();
+                    new FCMNotificationHelper(this).sendNotification(bookingModel.getSenderID(),
+                            "Request Accepted", "Your request is accepted by the gardener");
+
+                    new FCMNotificationHelper(this).sendNotification(bookingModel.getSenderID(),
+                            "Pending Payment", "Please complete the payment process");
+
                     Toast.makeText(this, "Request Accepted Successfully", Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 })

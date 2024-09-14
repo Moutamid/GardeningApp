@@ -77,15 +77,17 @@ public class HomeFragment extends Fragment {
                                 ServiceModel model = dataSnapshot.getValue(ServiceModel.class);
                                 list.add(model);
                             }
-                            if (list.size() > 0){
+                            if (!list.isEmpty()){
                                 binding.servicesRC.setVisibility(View.VISIBLE);
                                 binding.nothingLayout.setVisibility(View.GONE);
                             } else {
                                 binding.servicesRC.setVisibility(View.GONE);
                                 binding.nothingLayout.setVisibility(View.VISIBLE);
                             }
-                            ServicesAdapter adapter = new ServicesAdapter(requireContext(), list);
-                            binding.servicesRC.setAdapter(adapter);
+                            if (isAdded() && getActivity() != null) {
+                                ServicesAdapter adapter = new ServicesAdapter(requireContext(), list);
+                                binding.servicesRC.setAdapter(adapter);
+                            }
                         }
                     }
 

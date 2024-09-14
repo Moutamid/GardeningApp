@@ -18,7 +18,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.activities.UserProfileActivity;
 import com.moutamid.gardeningapp.models.BookingModel;
-import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
+import com.moutamid.gardeningapp.notification.FCMNotificationHelper;
 import com.moutamid.gardeningapp.utilis.Constants;
 
 import java.util.ArrayList;
@@ -69,10 +69,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                                             .child(model.getID()).removeValue()
                                             .addOnSuccessListener(unused2 -> {
                                                 Constants.dismissDialog();
-                                                new FcmNotificationsSender(
-                                                        "/topics/" + model.getSenderID(),
-                                                        "Request Decline", "Your request is decline by the gardener", context, activiy)
-                                                        .SendNotifications();
+                                                new FCMNotificationHelper(context).sendNotification(model.getSenderID(),
+                                                        "Request Decline", "Your request is decline by the gardener");
                                                 Toast.makeText(context, "Request Decline Successfully", Toast.LENGTH_SHORT).show();
                                             }).addOnFailureListener(e -> {
                                                 Constants.dismissDialog();

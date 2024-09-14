@@ -23,7 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
+import com.moutamid.gardeningapp.notification.FCMNotificationHelper;
 import com.moutamid.gardeningapp.utilis.Constants;
 import com.moutamid.gardeningapp.R;
 import com.moutamid.gardeningapp.models.BookingModel;
@@ -74,10 +74,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
                                     Constants.dismissDialog();
                                     UserModel userModel = (UserModel) Stash.getObject(Constants.STASH_USER, UserModel.class);
                                     String rec = userModel.isGardener() ? model.getSenderID() : model.getServiceModel().getUserID();
-                                    new FcmNotificationsSender(
-                                            "/topics/" + rec,
-                                            "Order Completion", "Order Completion Successfully", context, activity)
-                                            .SendNotifications();
+
+                                    new FCMNotificationHelper(context).sendNotification(rec,
+                                            "Order Completion", "Order Completion Successfully");
                                     Toast.makeText(context, "Order Completion Successfully", Toast.LENGTH_SHORT).show();
                                     showReview(model);
                                 }).addOnFailureListener(e -> {

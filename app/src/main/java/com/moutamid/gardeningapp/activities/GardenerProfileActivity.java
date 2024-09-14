@@ -35,7 +35,7 @@ import com.moutamid.gardeningapp.databinding.ActivityGardenerProfileBinding;
 import com.moutamid.gardeningapp.models.BookingModel;
 import com.moutamid.gardeningapp.models.ServiceModel;
 import com.moutamid.gardeningapp.models.UserModel;
-import com.moutamid.gardeningapp.notification.FcmNotificationsSender;
+import com.moutamid.gardeningapp.notification.FCMNotificationHelper;
 import com.moutamid.gardeningapp.utilis.BookingClickListeners;
 import com.moutamid.gardeningapp.utilis.Constants;
 
@@ -233,10 +233,8 @@ public class GardenerProfileActivity extends AppCompatActivity {
                 .addOnSuccessListener(unused -> {
                     Constants.databaseReference().child(Constants.BOOKINGS).child(bookingModel.getServiceModel().getUserID()).child(bookingModel.getID()).setValue(bookingModel)
                             .addOnSuccessListener(unused2 -> {
-                                new FcmNotificationsSender(
-                                        "/topics/" + bookingModel.getServiceModel().getUserID(),
-                                        "Booking Request", "Someone want's to book your service", this, this)
-                                        .SendNotifications();
+                                new FCMNotificationHelper(this).sendNotification(bookingModel.getServiceModel().getUserID(),
+                                        "Booking Request", "Someone want's to book your service");
                                 Constants.dismissDialog();
                                 Toast.makeText(this, "Booking Request Sent", Toast.LENGTH_LONG).show();
                             })
